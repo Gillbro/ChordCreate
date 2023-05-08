@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+ <meta charset="utf-8">
+ <title>コード作曲作成サイト</title>
+ <meta name="description" content="ディスクリプションを入力">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+ <!----- header----->
+  <div class = "container">
+
+   <header>CODE PROGRESSION TOOL</header>
+   <!----- /header ----->
+ 
+   <!----- main ----->
+   <article>
+   <h1>コード進行作成サイト</h1>
+   <p>ここは音楽理論をもとにコード作曲ができるオープンツールです。</p>
+   <p>下の設定画面から作曲する小節数、キー、テンポを設定してください</p>
+   <form name = "music_form" method="post" action="#">
+    <div class = "container2">
+      <div class="example">
+        <label for="tempolabel">テンポ:
+          <input type="number" id="tempolabel" placeholder="120" name = "tempo" max = "200">
+        </label>
+       </div>
+       <div >
+        <div class="input-block">
+          <div class="select-block example">
+            <label>KeyType:
+              <select id="category-select-2" name="KeyType_select">
+                <option>選択してください</option>
+              </select>
+            </label>
+          </div>
+          <div class="select-block example">
+            <label>Key:
+              <select id="sub-category-select-2" name="Key_select" disabled>
+                <option>選択してください</option>
+              </select>
+            </label>
+          </div>
+        </div>
+       </div>
+       <div class = "example">
+        <label>小節数:
+          <select name = "measure">
+            <option>選択してください</option>
+            <option>4</option>
+            <option>8</option>
+          </select>
+        </label>
+       </div>
+       <div class="example">
+        <input id="input" type="button" value="決定" onClick="check(); clickBtn_Tempo(); clickBtn_KeyType(); clickBtn_Key(); clickBtn_Measure(); Music_Btn();">
+       </div> 
+    </div>
+   </form>
+   <section>
+   <h2>TEST MODE</h2>                                                                                                                                   
+   <p>以下のボタンを押してボタンがなることを確認してください</p>
+   <div class="btn" onClick="audio()">テスト音源が流れます(コード作成時は鳴りません）</div>
+   <p>   </p>
+   <div class="mute_btn" onClick="mute()">muteの切り替え</div>
+   <!-- ボタンの音声を設定 -->
+   <audio id="btn_audio">
+     <source src="TEST.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_C3_maj">
+    <source src="code_list/C3_maj.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_C3_min">
+    <source src="code_list/C3_min.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_D3_maj">
+    <source src="code_list/D3_maj.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_D3_min">
+    <source src="code_list/D3_min.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_E3_maj">
+    <source src="code_list/E3_maj.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_E3_min">
+    <source src="code_list/E3_min.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_F3_maj">
+    <source src="code_list/F3_maj.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_F3_min">
+    <source src="code_list/F3_min.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_G3_maj">
+    <source src="code_list/G3_maj.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_G3_min">
+    <source src="code_list/G3_min.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_A3_maj">
+    <source src="code_list/A3_maj.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_A3_min">
+    <source src="code_list/A3_min.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_B3_maj">
+    <source src="code_list/B3_maj.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_B3_min">
+    <source src="code_list/B3_min.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_Db3_maj">
+    <source src="code_list/Db3_maj.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_Db3_min">
+    <source src="code_list/Db3_min.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_Eb3_maj">
+    <source src="code_list/Eb3_maj.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_Eb3_min">
+    <source src="code_list/Eb3_min.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_Gb3_maj">
+    <source src="code_list/Gb3_maj.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_Gb3_min">
+    <source src="code_list/Gb3_min.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_Ab3_maj">
+    <source src="code_list/Ab3_maj.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_Ab3_min">
+    <source src="code_list/Ab3_min.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_Bb3_maj">
+    <source src="code_list/Bb3_maj.mp3" type="audio/mp3">
+   </audio>
+   <audio id="btn_Bb3_min">
+    <source src="code_list/Bb3_min.mp3" type="audio/mp3">
+   </audio>
+   <h2>EDITOR</h2>
+   <p>下のボタンからコードを選択してください</p>
+   <!-----testbutton----->
+   <div class = inner>
+    <div id =sub_sub_button>
+      <div id = sub_button>
+        <input type="button" id="mybutton1" class = "inner_block2" value="CORD" onClick="myfunc(this); audio();">
+        <input type="button" id="mybutton2" class = "inner_block2" value="CORD" onClick="myfunc(this); audio();">
+        <input type="button" id="mybutton3" class = "inner_block2" value="CORD" onClick="myfunc(this); audio();">
+        <input type="button" id="mybutton4" class = "inner_block2" value="CORD" onClick="myfunc(this); audio();">
+      </div>
+    </div>
+   </div>
+   <input type = "button" class = "Reset_Button" value = "リセット" onclick="koushin()">
+   </section>
+   </article>
+   <!----- /main ----->
+   <footer>
+     Copyright <a href="https://twitter.com/gillbro_4">Gillbro</a>. All Rights Reserved.
+   </footer>
+  </div> 
+  <script src="main.js"></script>
+  <script src="index.php"></script>
+ </body>
+</html>
